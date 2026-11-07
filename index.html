@@ -1,0 +1,1716 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anime Cards Shop | Tu Tienda</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8b5cf6;
+            --secondary: #ec4899;
+            --accent: #06b6d4;
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+            --bg-dark: #0f0c29;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --text-primary: #ffffff;
+            --text-secondary: #cbd5e1;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Outfit', sans-serif;
+            background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #1a1a2e);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            min-height: 100vh;
+            color: var(--text-primary);
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        ::-webkit-scrollbar { width: 10px; }
+        ::-webkit-scrollbar-track { background: var(--bg-dark); }
+        ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 5px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--secondary); }
+
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        header {
+            padding: 1rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        header h1 { 
+            font-size: 1.8rem; 
+            font-weight: 800;
+            background: linear-gradient(to right, var(--accent), var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: slideInLeft 0.8s ease;
+        }
+
+        .header-actions { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+
+        .device-info {
+            padding: 0.5rem 1rem;
+            background: rgba(6, 182, 212, 0.1);
+            border: 1px solid var(--accent);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        .user-info {
+            padding: 0.5rem 1rem;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid var(--primary);
+            border-radius: 50px;
+            font-size: 0.85rem;
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        .admin-btn, .login-btn, .logout-btn, .user-btn {
+            padding: 0.6rem 1.2rem;
+            background: transparent;
+            border: 1px solid var(--accent);
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'Outfit', sans-serif;
+            transition: all 0.3s ease;
+        }
+        .admin-btn { color: var(--accent); }
+        .admin-btn:hover { 
+            background: var(--accent); 
+            color: var(--bg-dark);
+            box-shadow: 0 0 15px var(--accent);
+        }
+        .login-btn { color: var(--warning); border-color: var(--warning); }
+        .login-btn:hover { background: var(--warning); color: var(--bg-dark); }
+        .logout-btn { color: var(--danger); border-color: var(--danger); }
+        .logout-btn:hover { background: var(--danger); color: white; }
+        .user-btn { color: var(--primary); border-color: var(--primary); }
+        .user-btn:hover { background: var(--primary); color: white; }
+
+        .cart-icon {
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.6rem 1.2rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            position: relative;
+            border: none;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+        }
+        .cart-icon:hover { transform: scale(1.05); box-shadow: 0 0 20px rgba(236, 72, 153, 0.5); }
+        #cart-count {
+            background: #ffffff;
+            color: var(--secondary);
+            padding: 0.2rem 0.6rem;
+            border-radius: 50%;
+            font-size: 0.85rem;
+            margin-left: 0.5rem;
+            font-weight: 800;
+        }
+
+        .hero { text-align: center; padding: 5rem 2rem 3rem; animation: fadeIn 1s ease; }
+        .hero h2 { 
+            font-size: 3.5rem; 
+            font-weight: 800;
+            margin-bottom: 1rem; 
+            text-shadow: 0 0 30px rgba(139, 92, 246, 0.5);
+        }
+        .hero p { 
+            font-size: 1.3rem; 
+            color: var(--text-secondary);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .container { max-width: 1400px; margin: 0 auto; padding: 2rem; }
+        
+        .filters {
+            padding: 1.5rem;
+            border-radius: 20px;
+            margin-bottom: 3rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .filters h3 { color: var(--text-primary); margin-right: 1rem; font-weight: 600; }
+        
+        .filter-btn {
+            padding: 0.7rem 1.5rem;
+            border: 1px solid var(--glass-border);
+            background: rgba(255,255,255,0.03);
+            color: var(--text-secondary);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-family: 'Outfit', sans-serif;
+        }
+        .filter-btn:hover { background: rgba(255,255,255,0.1); color: white; transform: translateY(-2px); }
+        .filter-btn.active { 
+            background: linear-gradient(135deg, var(--primary), var(--secondary)); 
+            color: white; 
+            border-color: transparent;
+            box-shadow: 0 5px 15px rgba(139, 92, 246, 0.4);
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .empty-state {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--text-secondary);
+            animation: fadeIn 0.5s ease;
+        }
+        .empty-state-icon { font-size: 5rem; margin-bottom: 1rem; opacity: 0.5; }
+        .empty-state h3 { font-size: 1.8rem; margin-bottom: 0.5rem; color: var(--text-primary); }
+
+        .card {
+            border-radius: 20px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: fadeInUp 0.6s ease forwards;
+            opacity: 0;
+            position: relative;
+        }
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: 20px;
+            padding: 2px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .card:hover { 
+            transform: translateY(-10px) scale(1.02); 
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(139, 92, 246, 0.3);
+        }
+        .card:hover::before { opacity: 1; }
+
+        .card-admin-actions {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            display: none;
+            gap: 0.5rem;
+            z-index: 10;
+        }
+        .card-admin-actions.visible { display: flex; }
+        
+        .card-action-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .edit-btn { background: var(--warning); color: white; }
+        .edit-btn:hover { transform: scale(1.1); box-shadow: 0 0 15px var(--warning); }
+        .delete-btn { background: var(--danger); color: white; }
+        .delete-btn:hover { transform: scale(1.1); box-shadow: 0 0 15px var(--danger); }
+
+        .card-image-container {
+            width: 100%;
+            height: 350px;
+            overflow: hidden;
+            position: relative;
+            background: rgba(0,0,0,0.3);
+        }
+        .card-image-real { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            transition: transform 0.5s ease;
+        }
+        .card:hover .card-image-real { transform: scale(1.1); }
+        
+        .card-image-emoji {
+            width: 100%; height: 100%;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(236, 72, 153, 0.2));
+            display: flex; align-items: center; justify-content: center;
+            font-size: 6rem; 
+            transition: transform 0.5s ease;
+        }
+        .card:hover .card-image-emoji { transform: scale(1.1) rotate(5deg); }
+
+        .card-info { padding: 1.5rem; }
+        .card-title { font-size: 1.4rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--text-primary); }
+        .card-series { 
+            color: var(--accent); 
+            font-size: 0.85rem; 
+            margin-bottom: 1rem; 
+            font-weight: 600; 
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .card-price { 
+            font-size: 1.8rem; 
+            color: var(--secondary); 
+            font-weight: 800; 
+            margin-bottom: 1rem; 
+            text-shadow: 0 0 10px rgba(236, 72, 153, 0.3);
+        }
+        
+        .add-to-cart-btn {
+            width: 100%; 
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white; 
+            border: none; 
+            border-radius: 12px;
+            cursor: pointer; 
+            font-size: 1rem; 
+            font-weight: 700;
+            font-family: 'Outfit', sans-serif;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .add-to-cart-btn:hover { 
+            box-shadow: 0 0 25px rgba(236, 72, 153, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .modal {
+            display: none; 
+            position: fixed; 
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            justify-content: center; 
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+        .modal.active { display: flex; }
+        
+        .modal-content {
+            border-radius: 24px;
+            width: 90%; 
+            max-width: 600px; 
+            max-height: 85vh;
+            overflow-y: auto; 
+            animation: slideUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .modal-header {
+            padding: 1.5rem 2rem; 
+            border-bottom: 1px solid var(--glass-border);
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+        }
+        .modal-header h2 { font-weight: 700; font-size: 1.5rem; }
+        .close-btn { 
+            background: rgba(255,255,255,0.1); 
+            border: none; 
+            width: 40px; height: 40px;
+            border-radius: 50%;
+            font-size: 1.5rem; 
+            cursor: pointer; 
+            color: var(--text-primary);
+            transition: all 0.3s ease;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .close-btn:hover { background: var(--secondary); color: white; transform: rotate(90deg); }
+
+        .modal-body { padding: 2rem; }
+        .empty-cart { text-align: center; color: var(--text-secondary); padding: 3rem; font-size: 1.1rem; }
+        
+        .cart-item {
+            display: flex; 
+            gap: 1rem; 
+            padding: 1rem;
+            border-radius: 12px;
+            background: rgba(255,255,255,0.03);
+            margin-bottom: 1rem;
+            border: 1px solid var(--glass-border);
+            animation: fadeIn 0.3s ease;
+        }
+        .cart-item-image-real { width: 80px; height: 80px; object-fit: cover; border-radius: 12px; }
+        .cart-item-image-emoji {
+            width: 80px; height: 80px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 12px; 
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2.5rem;
+        }
+        .cart-item-info { flex: 1; display: flex; flex-direction: column; justify-content: center; }
+        .cart-item-title { font-weight: 600; margin-bottom: 0.5rem; font-size: 1.1rem; }
+        .cart-item-price { color: var(--accent); font-weight: 700; }
+        
+        .remove-item {
+            background: rgba(239, 68, 68, 0.2); 
+            color: #f87171; 
+            border: 1px solid rgba(239, 68, 68, 0.3); 
+            padding: 0.5rem 1rem; 
+            border-radius: 8px;
+            cursor: pointer; 
+            transition: all 0.3s ease;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 600;
+            align-self: center;
+        }
+        .remove-item:hover { background: #ef4444; color: white; }
+
+        .modal-footer { 
+            padding: 1.5rem 2rem; 
+            border-top: 1px solid var(--glass-border); 
+        }
+        .total { 
+            display: flex; 
+            justify-content: space-between; 
+            font-size: 1.8rem; 
+            font-weight: 800; 
+            margin-bottom: 1.5rem; 
+            color: var(--text-primary);
+        }
+        .total span:last-child { color: var(--secondary); text-shadow: 0 0 15px rgba(236, 72, 153, 0.4); }
+        
+        .checkout-btn, .submit-btn, .confirm-btn {
+            width: 100%; 
+            padding: 1.2rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white; 
+            border: none; 
+            border-radius: 12px;
+            font-size: 1.1rem; 
+            font-weight: 700; 
+            cursor: pointer;
+            font-family: 'Outfit', sans-serif;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .checkout-btn:hover, .submit-btn:hover, .confirm-btn:hover { 
+            transform: translateY(-2px); 
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.5); 
+        }
+        .confirm-btn { background: linear-gradient(135deg, var(--success), #059669); }
+        .confirm-btn:hover { box-shadow: 0 10px 30px rgba(16, 185, 129, 0.5); }
+
+        .payment-section-title {
+            font-size: 1.1rem;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .payment-section-title::before {
+            content: '';
+            width: 4px;
+            height: 20px;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        .bank-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .bank-option {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.2rem;
+            border: 1px solid var(--glass-border);
+            border-radius: 14px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(255,255,255,0.02);
+        }
+        .bank-option:hover {
+            border-color: var(--accent);
+            background: rgba(6, 182, 212, 0.08);
+            transform: translateX(5px);
+            box-shadow: 0 0 15px rgba(6, 182, 212, 0.15);
+        }
+
+        .bank-logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+            font-weight: 800;
+            color: white;
+            flex-shrink: 0;
+        }
+        
+        .bank-info { flex: 1; }
+        .bank-name { font-weight: 600; font-size: 1rem; margin-bottom: 0.2rem; }
+        .bank-desc { font-size: 0.8rem; color: var(--text-secondary); }
+
+        .bank-arrow {
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+            transition: transform 0.3s ease;
+        }
+        .bank-option:hover .bank-arrow { transform: translateX(5px); color: var(--accent); }
+
+        .transfer-details {
+            display: none;
+            animation: fadeInUp 0.4s ease;
+        }
+        .transfer-details.active { display: block; }
+
+        .transfer-header {
+            text-align: center;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(236, 72, 153, 0.1));
+            border-radius: 16px;
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--glass-border);
+        }
+        .transfer-amount {
+            font-size: 2.5rem;
+            font-weight: 800;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.3rem;
+        }
+        .transfer-label { color: var(--text-secondary); font-size: 0.9rem; }
+
+        .data-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background: rgba(0,0,0,0.2);
+            border-radius: 12px;
+            margin-bottom: 0.8rem;
+            border: 1px solid var(--glass-border);
+        }
+        .data-label {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.3rem;
+        }
+        .data-value {
+            font-size: 1rem;
+            color: var(--text-primary);
+            font-weight: 600;
+            word-break: break-all;
+        }
+        .copy-btn {
+            background: rgba(139, 92, 246, 0.2);
+            color: var(--primary);
+            border: 1px solid var(--primary);
+            padding: 0.4rem 0.8rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 600;
+            font-family: 'Outfit', sans-serif;
+            transition: all 0.3s ease;
+            margin-left: 1rem;
+            white-space: nowrap;
+        }
+        .copy-btn:hover { background: var(--primary); color: white; }
+        .copy-btn.copied { background: var(--success); color: white; border-color: var(--success); }
+
+        .back-btn {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--glass-border);
+            padding: 0.8rem;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            font-family: 'Outfit', sans-serif;
+            width: 100%;
+            margin-bottom: 1rem;
+            transition: all 0.3s ease;
+        }
+        .back-btn:hover { background: rgba(255,255,255,0.05); color: var(--text-primary); }
+
+        .warning-box {
+            background: rgba(251, 191, 36, 0.1);
+            border: 1px solid rgba(251, 191, 36, 0.3);
+            border-radius: 12px;
+            padding: 1rem;
+            margin: 1rem 0;
+            color: #fbbf24;
+            font-size: 0.9rem;
+            display: flex;
+            gap: 0.8rem;
+            align-items: flex-start;
+        }
+
+        .form-group { margin-bottom: 1.5rem; }
+        .form-group label { display: block; margin-bottom: 0.5rem; font-weight: 600; color: var(--text-secondary); font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%; 
+            padding: 1rem; 
+            background: rgba(0,0,0,0.2);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px; 
+            font-size: 1rem; 
+            color: var(--text-primary);
+            font-family: 'Outfit', sans-serif;
+            transition: all 0.3s ease;
+        }
+        .form-group textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+        .form-group input:focus, .form-group select:focus, .form-group textarea:focus { 
+            border-color: var(--primary); 
+            outline: none; 
+            box-shadow: 0 0 15px rgba(139, 92, 246, 0.3);
+        }
+        .form-group input[type="file"] { padding: 0.8rem; cursor: pointer; }
+        .form-group input[type="file"]::file-selector-button {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Outfit', sans-serif;
+            margin-right: 1rem;
+            transition: background 0.3s;
+        }
+        .form-group input[type="file"]::file-selector-button:hover { background: var(--secondary); }
+        .form-hint { font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.4rem; font-style: italic; }
+
+        .login-form, .register-form, .address-form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        .login-error, .register-error {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #f87171;
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            display: none;
+        }
+        .login-error.show, .register-error.show { display: block; }
+
+        .auth-switch {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: var(--text-secondary);
+        }
+        .auth-switch a {
+            color: var(--accent);
+            cursor: pointer;
+            font-weight: 600;
+            text-decoration: none;
+        }
+        .auth-switch a:hover { text-decoration: underline; }
+
+        .device-info-display {
+            background: rgba(6, 182, 212, 0.05);
+            border: 1px solid var(--accent);
+            border-radius: 12px;
+            padding: 1rem;
+            margin: 1rem 0;
+        }
+        .device-info-display h4 {
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+        .device-info-display p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin: 0.3rem 0;
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem 2rem;
+            margin-top: 3rem;
+            border-top: 1px solid var(--glass-border);
+            background: rgba(0,0,0,0.2);
+        }
+        footer p { margin: 0.5rem 0; color: var(--text-secondary); }
+        footer p:first-child { color: var(--text-primary); font-weight: 600; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideInLeft { from { transform: translateX(-50px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+        @keyframes slideUp { from { transform: translateY(50px) scale(0.9); opacity: 0; } to { transform: translateY(0) scale(1); opacity: 1; } }
+        @keyframes slideInRight { from { transform: translateX(100px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+        @media (max-width: 768px) {
+            .hero h2 { font-size: 2.2rem; }
+            .cards-grid { grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1.5rem; }
+            .filters { flex-direction: column; align-items: stretch; }
+            .header-content { flex-direction: column; gap: 1rem; }
+            .header-actions { width: 100%; justify-content: center; }
+            .data-row { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+            .copy-btn { margin-left: 0; width: 100%; text-align: center; }
+            .device-info, .user-info { font-size: 0.75rem; padding: 0.4rem 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header class="glass">
+        <div class="header-content">
+            <h1>🎴 ANIME CARDS</h1>
+            <div class="header-actions">
+                <div id="deviceInfo" class="device-info"></div>
+                <div id="userInfo" class="user-info" style="display: none;"></div>
+                <button id="adminBtn" class="admin-btn" onclick="toggleAdminModal()" style="display: none;">⚡ Subir Carta</button>
+                <button id="loginBtn" class="login-btn" onclick="toggleAuthModal()">🔐 Ingresar</button>
+                <button id="logoutBtn" class="logout-btn" onclick="logoutUser()" style="display: none;">🚪 Salir</button>
+                <button id="adminLoginBtn" class="admin-btn" onclick="toggleAdminLoginModal()" style="display: none;">🔐 Admin</button>
+                <button id="adminLogoutBtn" class="logout-btn" onclick="logoutAdmin()" style="display: none;">🚪 Salir Admin</button>
+                <button class="cart-icon" onclick="toggleCart()">
+                    🛒 <span id="cart-count">0</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <h2>Colecciona el Poder</h2>
+        <p>Las cartas de anime más exclusivas con envío seguro a todo el país. Ediciones limitadas disponibles.</p>
+    </section>
+
+    <div class="container">
+        <div class="filters glass" id="filtersContainer">
+            <h3>Filtrar:</h3>
+            <button class="filter-btn active" onclick="filterCards('all', this)">Todas</button>
+        </div>
+
+        <div class="cards-grid" id="cardsGrid"></div>
+    </div>
+
+    <!-- Modal de Autenticación (Login/Registro) -->
+    <div id="authModal" class="modal">
+        <div class="modal-content glass">
+            <div class="modal-header">
+                <h2 id="authModalTitle">🔐 Iniciar Sesión</h2>
+                <button class="close-btn" onclick="toggleAuthModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <!-- Formulario de Login -->
+                <div id="loginForm" class="login-form">
+                    <div id="loginError" class="login-error">Email o contraseña incorrectos</div>
+                    <form onsubmit="loginUser(event)">
+                        <div class="form-group">
+                            <label>Email:</label>
+                            <input type="email" id="loginEmail" required placeholder="tu@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label>Contraseña:</label>
+                            <input type="password" id="loginPassword" required placeholder="••••••••">
+                        </div>
+                        <button type="submit" class="submit-btn">Iniciar Sesión</button>
+                    </form>
+                    <div class="auth-switch">
+                        ¿No tienes cuenta? <a onclick="showRegisterForm()">Regístrate aquí</a>
+                    </div>
+                </div>
+
+                <!-- Formulario de Registro -->
+                <div id="registerForm" class="register-form" style="display: none;">
+                    <div id="registerError" class="register-error"></div>
+                    <form onsubmit="registerUser(event)">
+                        <div class="form-group">
+                            <label>Nombre Completo:</label>
+                            <input type="text" id="registerName" required placeholder="Juan Pérez">
+                        </div>
+                        <div class="form-group">
+                            <label>Email:</label>
+                            <input type="email" id="registerEmail" required placeholder="tu@email.com">
+                        </div>
+                        <div class="form-group">
+                            <label>Teléfono:</label>
+                            <input type="tel" id="registerPhone" required placeholder="300 123 4567">
+                        </div>
+                        <div class="form-group">
+                            <label>Contraseña:</label>
+                            <input type="password" id="registerPassword" required placeholder="Mínimo 6 caracteres" minlength="6">
+                        </div>
+                        <div class="form-group">
+                            <label>Confirmar Contraseña:</label>
+                            <input type="password" id="registerConfirmPassword" required placeholder="Repite tu contraseña">
+                        </div>
+                        <button type="submit" class="submit-btn">Crear Cuenta</button>
+                    </form>
+                    <div class="auth-switch">
+                        ¿Ya tienes cuenta? <a onclick="showLoginForm()">Inicia sesión aquí</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Dirección de Envío -->
+    <div id="addressModal" class="modal">
+        <div class="modal-content glass">
+            <div class="modal-header">
+                <h2>📍 Dirección de Envío</h2>
+                <button class="close-btn" onclick="toggleAddressModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="address-form">
+                    <p style="color: var(--text-secondary); margin-bottom: 1.5rem;">Por favor completa tu dirección para recibir tu pedido:</p>
+                    <form id="addressForm" onsubmit="saveAddress(event)">
+                        <div class="form-group">
+                            <label>Dirección Completa:</label>
+                            <textarea id="userAddress" required placeholder="Calle 123 #45-67, Apto 801"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>Ciudad:</label>
+                            <input type="text" id="userCity" required placeholder="Bogotá">
+                        </div>
+                        <div class="form-group">
+                            <label>Departamento:</label>
+                            <input type="text" id="userDepartment" required placeholder="Cundinamarca">
+                        </div>
+                        <div class="form-group">
+                            <label>Código Postal:</label>
+                            <input type="text" id="userPostalCode" required placeholder="110111">
+                        </div>
+                        <div class="form-group">
+                            <label>País:</label>
+                            <input type="text" id="userCountry" required value="Colombia" readonly>
+                        </div>
+                        <button type="submit" class="submit-btn">Guardar Dirección</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Login Admin -->
+    <div id="adminLoginModal" class="modal">
+        <div class="modal-content glass">
+            <div class="modal-header">
+                <h2>🔐 Acceso de Administrador</h2>
+                <button class="close-btn" onclick="toggleAdminLoginModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <div class="login-form">
+                    <div id="adminLoginError" class="login-error">Usuario o contraseña incorrectos</div>
+                    <form onsubmit="loginAdmin(event)">
+                        <div class="form-group">
+                            <label>Usuario:</label>
+                            <input type="text" id="adminLoginUser" required placeholder="admin">
+                        </div>
+                        <div class="form-group">
+                            <label>Contraseña:</label>
+                            <input type="password" id="adminLoginPass" required placeholder="••••••••">
+                        </div>
+                        <button type="submit" class="submit-btn">Iniciar Sesión</button>
+                    </form>
+                    <p style="margin-top: 1.5rem; font-size: 0.85rem; color: var(--text-secondary); text-align: center; background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+                        <strong>Credenciales de prueba:</strong><br>
+                        Usuario: <code>admin</code><br>
+                        Contraseña: <code>admin123</code>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal del Carrito -->
+    <div id="cartModal" class="modal">
+        <div class="modal-content glass">
+            <div class="modal-header">
+                <h2>Tu Carrito</h2>
+                <button class="close-btn" onclick="toggleCart()">×</button>
+            </div>
+            <div class="modal-body" id="cartItems">
+                <div class="empty-cart">Tu carrito está vacío 🍃</div>
+            </div>
+            <div class="modal-footer">
+                <div class="total">
+                    <span>Total:</span>
+                    <span id="cartTotal">$0.00</span>
+                </div>
+                <button class="checkout-btn" onclick="checkout()">Proceder al Pago</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Pago -->
+    <div id="paymentModal" class="modal">
+        <div class="modal-content glass">
+            <div class="modal-header">
+                <h2>💳 Método de Pago</h2>
+                <button class="close-btn" onclick="closePayment()">×</button>
+            </div>
+            <div class="modal-body">
+                <div id="banksView">
+                    <div class="payment-section-title">Selecciona tu banco o método de pago</div>
+                    <div class="bank-list" id="bankList"></div>
+                    <div class="warning-box">
+                        <span>⚠️</span>
+                        <span>Tu pedido se confirmará una vez que verifiquemos tu pago (máximo 24 horas).</span>
+                    </div>
+                </div>
+
+                <div id="transferView" class="transfer-details">
+                    <button class="back-btn" onclick="showBanksView()">← Volver a métodos de pago</button>
+                    <div class="transfer-header">
+                        <div class="transfer-label">Monto a pagar</div>
+                        <div class="transfer-amount" id="transferAmount">$0.00</div>
+                        <div class="transfer-label">Realiza el pago a la siguiente cuenta:</div>
+                    </div>
+
+                    <div id="bankSelectedInfo" style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: rgba(255,255,255,0.03); border-radius: 12px; margin-bottom: 1.5rem; border: 1px solid var(--glass-border);">
+                        <div id="selectedBankLogo" class="bank-logo"></div>
+                        <div>
+                            <div style="font-weight: 700; font-size: 1.1rem;" id="selectedBankName"></div>
+                            <div style="font-size: 0.85rem; color: var(--text-secondary);">Datos para el pago</div>
+                        </div>
+                    </div>
+
+                    <div class="data-row">
+                        <div style="flex: 1;">
+                            <div class="data-label">Beneficiario</div>
+                            <div class="data-value">Anime Cards Shop</div>
+                        </div>
+                        <button class="copy-btn" onclick="copyToClipboard('Anime Cards Shop', this)">Copiar</button>
+                    </div>
+
+                    <div class="data-row">
+                        <div style="flex: 1;">
+                            <div class="data-label" id="accountTypeLabel">Cuenta</div>
+                            <div class="data-value" id="bankAccount">000000000000</div>
+                        </div>
+                        <button class="copy-btn" onclick="copyToClipboard(document.getElementById('bankAccount').textContent, this)">Copiar</button>
+                    </div>
+
+                    <div class="data-row">
+                        <div style="flex: 1;">
+                            <div class="data-label">Concepto / Referencia</div>
+                            <div class="data-value" id="transferConcept">PEDIDO-000000</div>
+                        </div>
+                        <button class="copy-btn" onclick="copyToClipboard(document.getElementById('transferConcept').textContent, this)">Copiar</button>
+                    </div>
+
+                    <div class="warning-box">
+                        <span>📝</span>
+                        <span>Es <strong>muy importante</strong> que uses el concepto indicado para que podamos identificar tu pago.</span>
+                    </div>
+
+                    <button class="confirm-btn" onclick="confirmTransfer()">✓ Ya realicé el pago</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Administración -->
+    <div id="adminModal" class="modal">
+        <div class="modal-content glass">
+            <div class="modal-header">
+                <h2 id="adminModalTitle">⚡ Subir Nueva Carta</h2>
+                <button class="close-btn" onclick="toggleAdminModal()">×</button>
+            </div>
+            <div class="modal-body">
+                <form id="addCardForm" onsubmit="saveCard(event)">
+                    <input type="hidden" id="editCardId">
+                    <div class="form-group">
+                        <label>Nombre de la Carta:</label>
+                        <input type="text" id="newCardTitle" required placeholder="Ej: Goku Ultra Instinto">
+                    </div>
+                    <div class="form-group">
+                        <label>Anime al que pertenece:</label>
+                        <input type="text" id="newCardAnime" required placeholder="Ej: Dragon Ball Z, Naruto Shippuden...">
+                        <div class="form-hint">Escribe el nombre exacto del anime (se usará para crear filtros automáticos)</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Precio ($):</label>
+                        <input type="number" id="newCardPrice" step="0.01" required placeholder="19.99">
+                    </div>
+                    <div class="form-group">
+                        <label>Imagen de la Carta:</label>
+                        <input type="file" id="newCardImage" accept="image/*">
+                        <div class="form-hint">Deja vacío para mantener la imagen actual (al editar)</div>
+                    </div>
+                    <div class="form-group">
+                        <label>Emoji (si no subes imagen):</label>
+                        <input type="text" id="newCardEmoji" placeholder="🐉" maxlength="2">
+                    </div>
+                    <button type="submit" class="submit-btn" id="submitBtn">Publicar Carta</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2024 Anime Cards Shop. Todos los derechos reservados.</p>
+        <p>Contacto: info@animecards.com | WhatsApp: +1 234 567 890</p>
+    </footer>
+
+    <script>
+        // Configuración de administrador (CAMBIA ESTAS CREDENCIALES)
+        const ADMIN_USER = 'admin';
+        const ADMIN_PASS = 'admin123';
+
+        // Detección de dispositivo
+        function detectDevice() {
+            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+            let device = 'Desktop';
+            let os = 'Desconocido';
+            let browser = 'Desconocido';
+
+            // Detectar dispositivo
+            if (/android/i.test(userAgent)) {
+                device = 'Android';
+                os = 'Android';
+            } else if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+                device = 'iOS';
+                os = 'iOS';
+            } else if (/Windows/i.test(userAgent)) {
+                os = 'Windows';
+            } else if (/Mac/i.test(userAgent)) {
+                os = 'macOS';
+            } else if (/Linux/i.test(userAgent)) {
+                os = 'Linux';
+            }
+
+            // Detectar navegador
+            if (/Chrome/i.test(userAgent) && !/Edge/i.test(userAgent) && !/Edg/i.test(userAgent)) {
+                browser = 'Chrome';
+            } else if (/Firefox/i.test(userAgent)) {
+                browser = 'Firefox';
+            } else if (/Safari/i.test(userAgent) && !/Chrome/i.test(userAgent)) {
+                browser = 'Safari';
+            } else if (/Edge|Edg/i.test(userAgent)) {
+                browser = 'Edge';
+            } else if (/Opera|OPR/i.test(userAgent)) {
+                browser = 'Opera';
+            }
+
+            // Detectar si es móvil o tablet
+            if (/mobile/i.test(userAgent)) {
+                device = 'Móvil';
+            } else if (/tablet/i.test(userAgent) || (/iPad/i.test(userAgent) && !/mobile/i.test(userAgent))) {
+                device = 'Tablet';
+            } else if (/android/i.test(userAgent) && !/mobile/i.test(userAgent)) {
+                device = 'Tablet Android';
+            }
+
+            return { device, os, browser };
+        }
+
+        const deviceInfo = detectDevice();
+
+        // Métodos de pago - BANCOS DE COLOMBIA
+        const paymentMethods = [
+            { id: 'nequi', name: 'Nequi', desc: 'Billetera digital de Bancolombia', color: '#6F1D7C', initials: 'NQ', account: '300 123 4567', accountType: 'Celular Nequi' },
+            { id: 'daviplata', name: 'Daviplata', desc: 'Billetera digital de Davivienda', color: '#E30613', initials: 'DP', account: '300 987 6543', accountType: 'Celular Daviplata' },
+            { id: 'ahorra', name: 'Ahorra a la Mano', desc: 'Cuenta de ahorros de Bancolombia', color: '#FDD835', initials: 'AM', account: '23456789012', accountType: 'Cuenta de Ahorros' },
+            { id: 'bancolombia', name: 'Bancolombia', desc: 'Transferencia PSE inmediata', color: '#FDD835', initials: 'BC', account: '234-567890-12', accountType: 'Cuenta de Ahorros' },
+            { id: 'davivienda', name: 'Davivienda', desc: 'Transferencia PSE inmediata', color: '#E30613', initials: 'DV', account: '098-765432-10', accountType: 'Cuenta de Ahorros' },
+            { id: 'bogota', name: 'Banco de Bogotá', desc: 'Transferencia PSE inmediata', color: '#003DA5', initials: 'BB', account: '123-456789-01', accountType: 'Cuenta de Ahorros' },
+            { id: 'popular', name: 'Banco Popular', desc: 'Transferencia PSE inmediata', color: '#00A651', initials: 'BP', account: '456-789012-34', accountType: 'Cuenta de Ahorros' },
+            { id: 'bbva', name: 'BBVA Colombia', desc: 'Transferencia PSE inmediata', color: '#004481', initials: 'BB', account: '012-345678-90', accountType: 'Cuenta de Ahorros' },
+            { id: 'scotiabank', name: 'Scotiabank Colpatria', desc: 'Transferencia PSE inmediata', color: '#EC111A', initials: 'SC', account: '789-012345-67', accountType: 'Cuenta de Ahorros' },
+            { id: 'falabella', name: 'Banco Falabella', desc: 'Transferencia PSE inmediata', color: '#00A1E0', initials: 'FB', account: '345-678901-23', accountType: 'Cuenta de Ahorros' },
+            { id: 'avvillas', name: 'Banco AV Villas', desc: 'Transferencia PSE inmediata', color: '#FF6B00', initials: 'AV', account: '678-901234-56', accountType: 'Cuenta de Ahorros' },
+            { id: 'occidente', name: 'Banco de Occidente', desc: 'Transferencia PSE inmediata', color: '#003DA5', initials: 'BO', account: '901-234567-89', accountType: 'Cuenta de Ahorros' },
+            { id: 'nu', name: 'Nu Colombia', desc: 'Transferencia desde NuApp', color: '#820AD1', initials: 'NU', account: '567-890123-45', accountType: 'Cuenta de Ahorros' },
+            { id: 'lulo', name: 'Lulo Bank', desc: 'Banco digital 100% colombiano', color: '#00D084', initials: 'LB', account: '890-123456-78', accountType: 'Cuenta de Ahorros' },
+            { id: 'pse', name: 'PSE', desc: 'Pagos Seguros en Línea', color: '#005BAA', initials: 'PSE', account: 'Cuenta virtual PSE #123456', accountType: 'Cuenta PSE' }
+        ];
+
+        // Estado de la aplicación
+        let cards = JSON.parse(localStorage.getItem('animeCards')) || [];
+        let users = JSON.parse(localStorage.getItem('animeCardsUsers')) || [];
+        let cart = [];
+        let currentFilter = 'all';
+        let nextId = cards.length > 0 ? Math.max(...cards.map(c => c.id)) + 1 : 1;
+        let selectedPayment = null;
+        let orderReference = '';
+        let isAdmin = localStorage.getItem('isAdmin') === 'true';
+        let currentUser = JSON.parse(localStorage.getItem('currentUser')) || null;
+        let editingCard = null;
+
+        // Inicialización
+        function init() {
+            updateDeviceDisplay();
+            updateAdminUI();
+            updateUserUI();
+            updateFilters();
+            loadCards();
+        }
+
+        // Mostrar información del dispositivo
+        function updateDeviceDisplay() {
+            const deviceInfoEl = document.getElementById('deviceInfo');
+            deviceInfoEl.textContent = `📱 ${deviceInfo.device} | ${deviceInfo.os} | ${deviceInfo.browser}`;
+        }
+
+        // Sistema de autenticación de usuarios
+        function toggleAuthModal() {
+            document.getElementById('authModal').classList.toggle('active');
+            showLoginForm();
+        }
+
+        function showLoginForm() {
+            document.getElementById('loginForm').style.display = 'block';
+            document.getElementById('registerForm').style.display = 'none';
+            document.getElementById('authModalTitle').textContent = '🔐 Iniciar Sesión';
+        }
+
+        function showRegisterForm() {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('registerForm').style.display = 'block';
+            document.getElementById('authModalTitle').textContent = '📝 Crear Cuenta';
+        }
+
+        function registerUser(event) {
+            event.preventDefault();
+            const name = document.getElementById('registerName').value.trim();
+            const email = document.getElementById('registerEmail').value.trim();
+            const phone = document.getElementById('registerPhone').value.trim();
+            const password = document.getElementById('registerPassword').value;
+            const confirmPassword = document.getElementById('registerConfirmPassword').value;
+
+            const errorEl = document.getElementById('registerError');
+
+            if (password !== confirmPassword) {
+                errorEl.textContent = 'Las contraseñas no coinciden';
+                errorEl.classList.add('show');
+                setTimeout(() => errorEl.classList.remove('show'), 3000);
+                return;
+            }
+
+            if (users.find(u => u.email === email)) {
+                errorEl.textContent = 'Este email ya está registrado';
+                errorEl.classList.add('show');
+                setTimeout(() => errorEl.classList.remove('show'), 3000);
+                return;
+            }
+
+            const newUser = {
+                id: Date.now(),
+                name,
+                email,
+                phone,
+                password,
+                address: null,
+                deviceInfo: deviceInfo,
+                registeredAt: new Date().toISOString()
+            };
+
+            users.push(newUser);
+            localStorage.setItem('animeCardsUsers', JSON.stringify(users));
+
+            currentUser = newUser;
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+
+            updateUserUI();
+            toggleAuthModal();
+            showNotification('¡Cuenta creada exitosamente! 🎉');
+        }
+
+        function loginUser(event) {
+            event.preventDefault();
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value;
+
+            const user = users.find(u => u.email === email && u.password === password);
+
+            if (user) {
+                currentUser = user;
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                updateUserUI();
+                toggleAuthModal();
+                showNotification(`¡Bienvenido, ${user.name}! 👋`);
+            } else {
+                document.getElementById('loginError').classList.add('show');
+                setTimeout(() => document.getElementById('loginError').classList.remove('show'), 3000);
+            }
+        }
+
+        function logoutUser() {
+            if (confirm('¿Estás seguro de que quieres cerrar sesión?')) {
+                currentUser = null;
+                localStorage.removeItem('currentUser');
+                updateUserUI();
+                showNotification('Sesión cerrada correctamente');
+            }
+        }
+
+        function updateUserUI() {
+            const userInfoEl = document.getElementById('userInfo');
+            const loginBtn = document.getElementById('loginBtn');
+            const logoutBtn = document.getElementById('logoutBtn');
+
+            if (currentUser) {
+                userInfoEl.textContent = `👤 ${currentUser.name}`;
+                userInfoEl.style.display = 'block';
+                loginBtn.style.display = 'none';
+                logoutBtn.style.display = 'block';
+            } else {
+                userInfoEl.style.display = 'none';
+                loginBtn.style.display = 'block';
+                logoutBtn.style.display = 'none';
+            }
+        }
+
+        // Sistema de dirección
+        function toggleAddressModal() {
+            if (!currentUser) {
+                alert('Debes iniciar sesión primero');
+                toggleAuthModal();
+                return;
+            }
+
+            const modal = document.getElementById('addressModal');
+            modal.classList.toggle('active');
+
+            if (currentUser.address) {
+                document.getElementById('userAddress').value = currentUser.address.address || '';
+                document.getElementById('userCity').value = currentUser.address.city || '';
+                document.getElementById('userDepartment').value = currentUser.address.department || '';
+                document.getElementById('userPostalCode').value = currentUser.address.postalCode || '';
+                document.getElementById('userCountry').value = currentUser.address.country || 'Colombia';
+            }
+        }
+
+        function saveAddress(event) {
+            event.preventDefault();
+
+            currentUser.address = {
+                address: document.getElementById('userAddress').value.trim(),
+                city: document.getElementById('userCity').value.trim(),
+                department: document.getElementById('userDepartment').value.trim(),
+                postalCode: document.getElementById('userPostalCode').value.trim(),
+                country: document.getElementById('userCountry').value.trim()
+            };
+
+            // Actualizar en el array de usuarios
+            const userIndex = users.findIndex(u => u.id === currentUser.id);
+            if (userIndex !== -1) {
+                users[userIndex] = currentUser;
+                localStorage.setItem('animeCardsUsers', JSON.stringify(users));
+            }
+
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            toggleAddressModal();
+            showNotification('¡Dirección guardada correctamente! 📍');
+        }
+
+        // Sistema de autenticación de administrador
+        function loginAdmin(event) {
+            event.preventDefault();
+            const user = document.getElementById('adminLoginUser').value;
+            const pass = document.getElementById('adminLoginPass').value;
+
+            if (user === ADMIN_USER && pass === ADMIN_PASS) {
+                isAdmin = true;
+                localStorage.setItem('isAdmin', 'true');
+                updateAdminUI();
+                toggleAdminLoginModal();
+                showNotification('¡Bienvenido, Administrador! 🔐');
+            } else {
+                document.getElementById('adminLoginError').classList.add('show');
+                setTimeout(() => document.getElementById('adminLoginError').classList.remove('show'), 3000);
+            }
+        }
+
+        function logoutAdmin() {
+            if (confirm('¿Estás seguro de que quieres cerrar sesión de administrador?')) {
+                isAdmin = false;
+                localStorage.removeItem('isAdmin');
+                updateAdminUI();
+                showNotification('Sesión de administrador cerrada');
+            }
+        }
+
+        function updateAdminUI() {
+            const adminBtn = document.getElementById('adminBtn');
+            const adminLoginBtn = document.getElementById('adminLoginBtn');
+            const adminLogoutBtn = document.getElementById('adminLogoutBtn');
+
+            if (isAdmin) {
+                adminBtn.style.display = 'block';
+                adminLoginBtn.style.display = 'none';
+                adminLogoutBtn.style.display = 'block';
+            } else {
+                adminBtn.style.display = 'none';
+                adminLoginBtn.style.display = 'block';
+                adminLogoutBtn.style.display = 'none';
+            }
+
+            loadCards();
+        }
+
+        function toggleAdminLoginModal() {
+            document.getElementById('adminLoginModal').classList.toggle('active');
+        }
+
+        // Gestión de cartas
+        function toggleAdminModal(cardId = null) {
+            if (!isAdmin) {
+                alert('Acceso denegado. Solo el administrador puede gestionar cartas.');
+                return;
+            }
+
+            const modal = document.getElementById('adminModal');
+            const title = document.getElementById('adminModalTitle');
+            const submitBtn = document.getElementById('submitBtn');
+            const form = document.getElementById('addCardForm');
+
+            if (cardId) {
+                editingCard = cards.find(c => c.id === cardId);
+                if (!editingCard) return;
+
+                title.textContent = '✏️ Editar Carta';
+                submitBtn.textContent = 'Guardar Cambios';
+                
+                document.getElementById('editCardId').value = editingCard.id;
+                document.getElementById('newCardTitle').value = editingCard.title;
+                document.getElementById('newCardAnime').value = editingCard.anime;
+                document.getElementById('newCardPrice').value = editingCard.price;
+                document.getElementById('newCardEmoji').value = editingCard.emoji || '';
+            } else {
+                editingCard = null;
+                title.textContent = '⚡ Subir Nueva Carta';
+                submitBtn.textContent = 'Publicar Carta';
+                form.reset();
+                document.getElementById('editCardId').value = '';
+            }
+
+            modal.classList.toggle('active');
+        }
+
+        function saveCard(event) {
+            event.preventDefault();
+            
+            if (!isAdmin) {
+                alert('Acceso denegado');
+                return;
+            }
+
+            const title = document.getElementById('newCardTitle').value.trim();
+            const anime = document.getElementById('newCardAnime').value.trim();
+            const price = parseFloat(document.getElementById('newCardPrice').value);
+            const imageFile = document.getElementById('newCardImage').files[0];
+            const emoji = document.getElementById('newCardEmoji').value || '🃏';
+            const editId = document.getElementById('editCardId').value;
+
+            if (!title || !anime || isNaN(price)) {
+                alert('Por favor completa todos los campos obligatorios');
+                return;
+            }
+
+            const finalizeSave = (imageData) => {
+                if (editId) {
+                    const cardIndex = cards.findIndex(c => c.id === parseInt(editId));
+                    if (cardIndex !== -1) {
+                        cards[cardIndex] = {
+                            ...cards[cardIndex],
+                            title,
+                            anime,
+                            price,
+                            emoji,
+                            image: imageData || cards[cardIndex].image
+                        };
+                        showNotification('¡Carta actualizada con éxito! ✏️');
+                    }
+                } else {
+                    const newCard = {
+                        id: nextId++,
+                        title,
+                        anime,
+                        price,
+                        emoji,
+                        image: imageData
+                    };
+                    cards.push(newCard);
+                    showNotification('¡Carta publicada con éxito! ⚡');
+                }
+
+                saveToLocalStorage();
+                updateFilters();
+                loadCards();
+                document.getElementById('addCardForm').reset();
+                toggleAdminModal();
+            };
+
+            if (imageFile) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    finalizeSave(e.target.result);
+                };
+                reader.readAsDataURL(imageFile);
+            } else {
+                finalizeSave(null);
+            }
+        }
+
+        function deleteCard(cardId) {
+            if (!isAdmin) {
+                alert('Acceso denegado');
+                return;
+            }
+
+            if (confirm('¿Estás seguro de que quieres eliminar esta carta? Esta acción no se puede deshacer.')) {
+                cards = cards.filter(c => c.id !== cardId);
+                saveToLocalStorage();
+                updateFilters();
+                loadCards();
+                showNotification('Carta eliminada correctamente 🗑️');
+            }
+        }
+
+        function saveToLocalStorage() {
+            localStorage.setItem('animeCards', JSON.stringify(cards));
+        }
+
+        // Visualización de cartas
+        function updateFilters() {
+            const container = document.getElementById('filtersContainer');
+            const uniqueAnimes = [...new Set(cards.map(c => c.anime))].sort();
+            
+            let filtersHTML = '<h3>Filtrar:</h3>';
+            filtersHTML += `<button class="filter-btn ${currentFilter === 'all' ? 'active' : ''}" onclick="filterCards('all', this)">Todas</button>`;
+            
+            uniqueAnimes.forEach(anime => {
+                const isActive = currentFilter === anime ? 'active' : '';
+                const safeAnime = anime.replace(/'/g, "\\'");
+                filtersHTML += `<button class="filter-btn ${isActive}" onclick="filterCards('${safeAnime}', this)">${anime}</button>`;
+            });
+            
+            container.innerHTML = filtersHTML;
+        }
+
+        function loadCards() {
+            const grid = document.getElementById('cardsGrid');
+            grid.innerHTML = '';
+            
+            const filteredCards = currentFilter === 'all' 
+                ? cards 
+                : cards.filter(card => card.anime === currentFilter);
+            
+            if (filteredCards.length === 0) {
+                const message = isAdmin 
+                    ? 'Usa el botón "⚡ Subir Carta" en la parte superior para agregar tu primera carta.'
+                    : 'Próximamente tendremos nuevas cartas disponibles. ¡Vuelve pronto!';
+                
+                grid.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📦</div>
+                        <h3>No hay cartas disponibles</h3>
+                        <p>${message}</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            filteredCards.forEach((card, index) => {
+                const cardElement = document.createElement('div');
+                cardElement.className = 'card';
+                cardElement.style.animationDelay = `${index * 0.1}s`;
+                
+                const imageContent = card.image 
+                    ? `<img src="${card.image}" class="card-image-real" alt="${card.title}">` 
+                    : `<div class="card-image-emoji">${card.emoji || '🃏'}</div>`;
+                
+                const adminActions = isAdmin ? `
+                    <div class="card-admin-actions visible">
+                        <button class="card-action-btn edit-btn" onclick="toggleAdminModal(${card.id})" title="Editar">✏️</button>
+                        <button class="card-action-btn delete-btn" onclick="deleteCard(${card.id})" title="Eliminar">🗑️</button>
+                    </div>
+                ` : '';
+                    
+                cardElement.innerHTML = `
+                    ${adminActions}
+                    <div class="card-image-container">${imageContent}</div>
+                    <div class="card-info">
+                        <h3 class="card-title">${card.title}</h3>
+                        <p class="card-series">${card.anime}</p>
+                        <p class="card-price">$${card.price.toFixed(2)}</p>
+                        <button class="add-to-cart-btn" onclick="addToCart(${card.id})">Agregar al Carrito</button>
+                    </div>
+                `;
+                grid.appendChild(cardElement);
+            });
+        }
+
+        function filterCards(anime, button) {
+            currentFilter = anime;
+            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            loadCards();
+        }
+
+        // Carrito de compras
+        function addToCart(cardId) {
+            const card = cards.find(c => c.id === cardId);
+            if (!card) return;
+            
+            const existingItem = cart.find(item => item.id === cardId);
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({ ...card, quantity: 1 });
+            }
+            updateCartUI();
+            showNotification('¡Carta agregada al carrito! 🔥');
+        }
+
+        function updateCartUI() {
+            const cartCount = document.getElementById('cart-count');
+            const cartItems = document.getElementById('cartItems');
+            const cartTotal = document.getElementById('cartTotal');
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            
+            cartCount.textContent = totalItems;
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<div class="empty-cart">Tu carrito está vacío 🍃</div>';
+                cartTotal.textContent = '$0.00';
+                return;
+            }
+            
+            cartItems.innerHTML = cart.map(item => {
+                const itemImage = item.image 
+                    ? `<img src="${item.image}" class="cart-item-image-real" alt="${item.title}">` 
+                    : `<div class="cart-item-image-emoji">${item.emoji || '🃏'}</div>`;
+                    
+                return `
+                <div class="cart-item">
+                    ${itemImage}
+                    <div class="cart-item-info">
+                        <div class="cart-item-title">${item.title}</div>
+                        <div class="cart-item-price">$${item.price.toFixed(2)} x ${item.quantity}</div>
+                    </div>
+                    <button class="remove-item" onclick="removeFromCart(${item.id})">Eliminar</button>
+                </div>
+            `}).join('');
+            
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            cartTotal.textContent = `$${total.toFixed(2)}`;
+        }
+
+        function removeFromCart(cardId) {
+            cart = cart.filter(item => item.id !== cardId);
+            updateCartUI();
+        }
+
+        function toggleCart() {
+            document.getElementById('cartModal').classList.toggle('active');
+        }
+
+        // Sistema de pago
+        function checkout() {
+            if (cart.length === 0) {
+                alert('Tu carrito está vacío');
+                return;
+            }
+
+            if (!currentUser) {
+                alert('Debes iniciar sesión para continuar con la compra');
+                toggleAuthModal();
+                return;
+            }
+
+            if (!currentUser.address) {
+                alert('Debes completar tu dirección de envío antes de continuar');
+                toggleAddressModal();
+                return;
+            }
+
+            toggleCart();
+            loadPaymentMethods();
+            showBanksView();
+            document.getElementById('paymentModal').classList.add('active');
+        }
+
+        function loadPaymentMethods() {
+            const bankList = document.getElementById('bankList');
+            bankList.innerHTML = paymentMethods.map(method => `
+                <div class="bank-option" onclick="selectPayment('${method.id}')">
+                    <div class="bank-logo" style="background: ${method.color};">${method.initials}</div>
+                    <div class="bank-info">
+                        <div class="bank-name">${method.name}</div>
+                        <div class="bank-desc">${method.desc}</div>
+                    </div>
+                    <div class="bank-arrow">›</div>
+                </div>
+            `).join('');
+        }
+
+        function selectPayment(methodId) {
+            selectedPayment = paymentMethods.find(m => m.id === methodId);
+            if (!selectedPayment) return;
+
+            orderReference = 'PEDIDO-' + Date.now().toString().slice(-6);
+
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            document.getElementById('transferAmount').textContent = `$${total.toFixed(2)}`;
+            document.getElementById('bankAccount').textContent = selectedPayment.account;
+            document.getElementById('transferConcept').textContent = orderReference;
+            document.getElementById('selectedBankName').textContent = selectedPayment.name;
+            document.getElementById('accountTypeLabel').textContent = selectedPayment.accountType;
+            
+            const logo = document.getElementById('selectedBankLogo');
+            logo.textContent = selectedPayment.initials;
+            logo.style.background = selectedPayment.color;
+
+            document.getElementById('banksView').style.display = 'none';
+            document.getElementById('transferView').classList.add('active');
+        }
+
+        function showBanksView() {
+            document.getElementById('banksView').style.display = 'block';
+            document.getElementById('transferView').classList.remove('active');
+            selectedPayment = null;
+        }
+
+        function closePayment() {
+            document.getElementById('paymentModal').classList.remove('active');
+        }
+
+        function confirmTransfer() {
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            
+            const orderDetails = `
+¡Gracias por tu compra! 🎉
+
+Método: ${selectedPayment.name}
+Referencia: ${orderReference}
+Monto: $${total.toFixed(2)}
+
+Cliente: ${currentUser.name}
+Email: ${currentUser.email}
+Teléfono: ${currentUser.phone}
+
+Dirección de envío:
+${currentUser.address.address}
+${currentUser.address.city}, ${currentUser.address.department}
+Código Postal: ${currentUser.address.postalCode}
+${currentUser.address.country}
+
+Dispositivo: ${deviceInfo.device} (${deviceInfo.os})
+Navegador: ${deviceInfo.browser}
+
+Tu pedido será confirmado en máximo 24 horas una vez que verifiquemos tu pago.
+
+Te enviaremos un correo con los detalles del envío.
+            `;
+            
+            alert(orderDetails);
+            
+            cart = [];
+            updateCartUI();
+            closePayment();
+        }
+
+        function copyToClipboard(text, button) {
+            navigator.clipboard.writeText(text).then(() => {
+                const originalText = button.textContent;
+                button.textContent = '✓ Copiado';
+                button.classList.add('copied');
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(() => {
+                const textarea = document.createElement('textarea');
+                textarea.value = text;
+                document.body.appendChild(textarea);
+                textarea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textarea);
+                const originalText = button.textContent;
+                button.textContent = '✓ Copiado';
+                button.classList.add('copied');
+                setTimeout(() => {
+                    button.textContent = originalText;
+                    button.classList.remove('copied');
+                }, 2000);
+            });
+        }
+
+        function showNotification(message) {
+            const notification = document.createElement('div');
+            notification.style.cssText = `position: fixed; top: 100px; right: 20px; background: linear-gradient(135deg, var(--primary), var(--secondary)); color: white; padding: 1rem 2rem; border-radius: 12px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5); z-index: 2000; animation: slideInRight 0.4s ease forwards; font-weight: 600; font-family: 'Outfit', sans-serif; border: 1px solid rgba(255,255,255,0.2);`;
+            notification.textContent = message;
+            document.body.appendChild(notification);
+            setTimeout(() => {
+                notification.style.animation = 'fadeIn 0.3s ease reverse';
+                setTimeout(() => notification.remove(), 300);
+            }, 2500);
+        }
+
+        // Iniciar aplicación
+        init();
+    </script>
+</body>
+</html>
